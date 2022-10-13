@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GolfBall : MonoBehaviour
+public class Ball : MonoBehaviour
 {
     private Rigidbody golfBallRigidbody;
     private float force;
@@ -44,10 +44,13 @@ public class GolfBall : MonoBehaviour
         this.force = force;
     }
 
-    public void SetSpin(float backspin, float sidespin)
+    public void SetStrikeLocation(Vector2 location)
     {
         // x range: -1 to 1
+        float backspin = location.x;
         // y range: -1 to 1
+        float sidespin = location.y;
+
         spin = new Vector3(backspin, sidespin, 0);
     }
 
