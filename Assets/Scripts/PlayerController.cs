@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] GameObject club;
     [SerializeField] GameObject ball;
+    [SerializeField] GameObject club;
+    [SerializeField] TextMeshProUGUI currentClubText;
     [SerializeField] float stanceAngle;
     [SerializeField] float power;
     [SerializeField] Vector2 ballStrikeLocation;
@@ -15,8 +17,8 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
-        clubScript = club.GetComponent<Club>();
         ballScript = ball.GetComponent<Ball>();
+        SelectClub(club);
     }
 
     void Update()
@@ -25,6 +27,14 @@ public class PlayerController : MonoBehaviour
         {
             StrikeBall();
         }
+    }
+
+    public void SelectClub(GameObject club)
+    {
+        this.club = club;
+        clubScript = this.club.GetComponent<Club>();
+
+        currentClubText.text = $"Current Club:\n{clubScript.nickname}";
     }
 
     void StrikeBall()

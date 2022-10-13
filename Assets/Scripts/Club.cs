@@ -11,6 +11,8 @@ public class Club : MonoBehaviour
     // Loft measured in degrees
     public float loft;
 
+    public string nickname;
+
     // Start is called before the first frame update
     void Start()
     {
