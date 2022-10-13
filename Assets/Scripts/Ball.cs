@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+	[SerializeField] float magnusConstant = 0.03f;
+
     private Rigidbody golfBallRigidbody;
+    private Vector3 spin;
     private float force;
-    private Vector3 spin = Vector3.zero;
-
-	public float magnusConstant = 0.03f;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         golfBallRigidbody = GetComponent<Rigidbody>();
@@ -18,9 +17,18 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate()
     {
+        ApplyMagnusForce();
+    }
+
+    void ApplyMagnusForce()
+    {
         if (magnusConstant > 0)
         {
-            Vector3 magnusForce = Vector3.Cross(golfBallRigidbody.angularVelocity, golfBallRigidbody.velocity);
+            Vector3 magnusForce = Vector3.Cross(
+                golfBallRigidbody.angularVelocity,
+                golfBallRigidbody.velocity
+            );
+            
             golfBallRigidbody.AddForce(magnusForce * magnusConstant);
         }
     }
@@ -58,10 +66,7 @@ public class Ball : MonoBehaviour
     {
         Debug.Log($"Aim: {transform.eulerAngles.y}, Loft: {transform.eulerAngles.x}, Force: {force}, Spin: {spin}");
 
-        // Hit the golf ball
         golfBallRigidbody.AddForce(transform.forward * this.force, ForceMode.Impulse);
-        
-        // Add spin
         golfBallRigidbody.AddRelativeTorque(spin, ForceMode.Impulse);
     }
 }
