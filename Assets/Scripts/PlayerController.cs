@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlayerController : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private float originalStanceImageAngle;
     private float stanceAngle;
     private Vector2 ballStrikeLocation;
+    private bool isHit;
     
     void Start()
     {
@@ -28,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             StrikeBall();
         }
@@ -67,14 +69,23 @@ public class PlayerController : MonoBehaviour
         ballStrikeLocation.y = newPosition;
     }
 
-    void StrikeBall()
+    public void StrikeBall()
     {
-        ballScript.SetAim(stanceAngle);
-        ballScript.SetLoft(clubScript.loft);
-        ballScript.SetStrikeLocation(ballStrikeLocation);
-        ballScript.SetForce(CalculateSwingForce());
+        if (!isHit)
+        {
+            ballScript.SetAim(stanceAngle);
+            ballScript.SetLoft(clubScript.loft);
+            ballScript.SetStrikeLocation(ballStrikeLocation);
+            ballScript.SetForce(CalculateSwingForce());
 
-        ballScript.StrikeBall();
+            ballScript.StrikeBall();
+            isHit = true;
+        }
+    }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     float CalculateSwingForce()
