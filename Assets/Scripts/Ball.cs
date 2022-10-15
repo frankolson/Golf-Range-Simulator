@@ -55,9 +55,9 @@ public class Ball : MonoBehaviour
     public void SetStrikeLocation(Vector2 location)
     {
         // x range: -1 to 1
-        float backspin = location.x;
+        float sidespin = location.x;
         // y range: -1 to 1
-        float sidespin = location.y;
+        float backspin = location.y;
 
         spin = new Vector3(backspin, sidespin, 0);
     }

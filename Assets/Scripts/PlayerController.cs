@@ -10,14 +10,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentClubText;
     [SerializeField] TextMeshProUGUI stanceAngleText;
     [SerializeField] GameObject stanceImage;
-    [SerializeField] float stanceAngle;
     [SerializeField] float power;
-    [SerializeField] Vector2 ballStrikeLocation;
 
     private Club clubScript;
     private Ball ballScript;
 
     private float originalStanceImageAngle;
+    private float stanceAngle;
+    private Vector2 ballStrikeLocation;
     
     void Start()
     {
@@ -55,6 +55,16 @@ public class PlayerController : MonoBehaviour
         rotation.z = originalStanceImageAngle + stanceAngle;
 
         stanceImage.transform.eulerAngles = rotation;
+    }
+
+    public void SetHorizontalStrikePosition(float newPosition)
+    {
+        ballStrikeLocation.x = newPosition;
+    }
+
+    public void SetVerticalStrikePosition(float newPosition)
+    {
+        ballStrikeLocation.y = newPosition;
     }
 
     void StrikeBall()
