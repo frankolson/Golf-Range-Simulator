@@ -1,23 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Ball : MonoBehaviour
 {
 	[SerializeField] float magnusConstant = 0.03f;
+    [SerializeField] TextMeshProUGUI distanceText;
+    [SerializeField] TextMeshProUGUI heightText;
 
     private Rigidbody golfBallRigidbody;
     private Vector3 spin;
     private float force;
+    private int topDistance;
+    private int topHeight;
     
     void Start()
     {
+
         golfBallRigidbody = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
         ApplyMagnusForce();
+        UpdateDistanceText();
+        UpdateHeightText();
     }
 
     void ApplyMagnusForce()
@@ -30,6 +38,24 @@ public class Ball : MonoBehaviour
             );
             
             golfBallRigidbody.AddForce(magnusForce * magnusConstant);
+        }
+    }
+
+    void UpdateDistanceText()
+    {
+        if ((int) transform.position.z > topDistance)
+        {
+            topDistance = (int) transform.position.z;
+            distanceText.text = $"Distance: {topDistance} yards";
+        }
+    }
+
+    void UpdateHeightText()
+    {
+        if ((int) transform.position.y > topHeight)
+        {
+            topHeight = (int) transform.position.y;
+            heightText.text = $"Height: {topHeight / 3} feet";
         }
     }
 
