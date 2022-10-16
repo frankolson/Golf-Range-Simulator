@@ -55,7 +55,7 @@ public class Ball : MonoBehaviour
         if ((int) transform.position.y > topHeight)
         {
             topHeight = (int) transform.position.y;
-            heightText.text = $"Height: {topHeight / 3} feet";
+            heightText.text = $"Height: {topHeight * 3} feet";
         }
     }
 
