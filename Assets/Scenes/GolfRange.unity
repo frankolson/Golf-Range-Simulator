@@ -1814,9 +1814,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 928f89deddac544648db38c344583d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 155
-  minDistance: 130
-  loft: 25
+  maxBallSpeed: 155
+  minBallSpeed: 130
+  loftAngle: 25
   nickname: 5 Iron
 --- !u!1 &667370319
 GameObject:
@@ -1862,9 +1862,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 928f89deddac544648db38c344583d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 140
-  minDistance: 120
-  loft: 35
+  maxBallSpeed: 140
+  minBallSpeed: 120
+  loftAngle: 25
   nickname: 7 Iron
 --- !u!1 &686568667
 GameObject:
@@ -2738,9 +2738,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 928f89deddac544648db38c344583d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 220
-  minDistance: 180
-  loft: 10
+  maxBallSpeed: 220
+  minBallSpeed: 180
+  loftAngle: 10
   nickname: Driver
 --- !u!4 &1008175043
 Transform:
@@ -3979,9 +3979,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 928f89deddac544648db38c344583d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 80
-  minDistance: 101
-  loft: 47
+  maxBallSpeed: 101
+  minBallSpeed: 80
+  loftAngle: 47
   nickname: Wedge
 --- !u!1 &1815490780
 GameObject:

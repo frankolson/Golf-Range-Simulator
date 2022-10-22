@@ -4,24 +4,11 @@ using UnityEngine;
 
 public class Club : MonoBehaviour
 {
-    // Distance measured in meters
-    public float maxDistance;
-    public float minDistance;
+    [Header("Measured in meters per second (m/s)")]
+    public float maxBallSpeed;
+    public float minBallSpeed;
     
-    // Loft measured in degrees
-    public float loft;
-
+    [Space]
+    public float loftAngle; // degrees
     public string nickname;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

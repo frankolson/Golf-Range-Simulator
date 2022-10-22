@@ -74,9 +74,9 @@ public class PlayerController : MonoBehaviour
         if (!isHit)
         {
             ballScript.AimAngle = stanceAngle;
-            ballScript.LoftAngle = clubScript.loft;
+            ballScript.LoftAngle = clubScript.loftAngle;
             ballScript.StrikeLocation = ballStrikeLocation;
-            ballScript.Force = CalculateSwingForce();
+            ballScript.Distance = CalculateBallSpeed();
 
             ballScript.StrikeBall();
             isHit = true;
@@ -88,11 +88,11 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    float CalculateSwingForce()
+    float CalculateBallSpeed()
     {
         return Mathf.Lerp(
-            clubScript.minDistance,
-            clubScript.maxDistance,
+            clubScript.minBallSpeed,
+            clubScript.maxBallSpeed,
             power
         );
     }

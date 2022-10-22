@@ -17,7 +17,7 @@ public class Ball : MonoBehaviour
     public Vector2 StrikeLocation { get; set; }
     public float AimAngle { get; set; }
     public float LoftAngle { get; set; }
-    public float Force { get; set; }
+    public float Distance { get; set; }
     
     void Start()
     {
@@ -37,6 +37,7 @@ public class Ball : MonoBehaviour
         ApplyLoft();
         ApplyStrikeForce();
         ApplySpin();
+        LogSwing();
     }
 
     void ApplyMagnusForce()
@@ -65,13 +66,18 @@ public class Ball : MonoBehaviour
 
     void ApplyStrikeForce()
     {
-        golfBallRigidbody.AddForce(transform.forward * Force, ForceMode.Impulse);
+        golfBallRigidbody.AddForce(transform.forward * CalculateForce(), ForceMode.Impulse);
     }
 
     void ApplySpin()
     {
         Vector3 spin = CalculateSpin();
         golfBallRigidbody.AddRelativeTorque(spin, ForceMode.Impulse);
+    }
+
+    float CalculateForce()
+    {
+        return Distance;
     }
 
     Vector3 CalculateSpin()
@@ -104,7 +110,7 @@ public class Ball : MonoBehaviour
     {
         string aim = $"Aim: {transform.eulerAngles.y}";
         string loft = $"Loft: {transform.eulerAngles.x}";
-        string force = $"Force: {Force}";
+        string force = $"Force: {CalculateForce()}";
         string spin = $"Spin: {CalculateSpin()}";
 
         Debug.Log($"{aim}\n{loft}\n{force}\n{spin}");
