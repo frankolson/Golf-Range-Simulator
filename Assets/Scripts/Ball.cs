@@ -35,7 +35,7 @@ public class Ball : MonoBehaviour
     {        
         ApplyAim();
         ApplyLoft();
-        golfBallRigidbody.AddForce(transform.forward * Force, ForceMode.Impulse);
+        ApplyStrikeForce();
         ApplySpin();
     }
 
@@ -61,6 +61,11 @@ public class Ball : MonoBehaviour
         Vector3 rotation = transform.eulerAngles;
         rotation.y = -AimAngle;
         transform.eulerAngles = rotation;
+    }
+
+    void ApplyStrikeForce()
+    {
+        golfBallRigidbody.AddForce(transform.forward * Force, ForceMode.Impulse);
     }
 
     void ApplySpin()
