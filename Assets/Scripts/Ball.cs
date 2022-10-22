@@ -6,6 +6,7 @@ using TMPro;
 public class Ball : MonoBehaviour
 {
 	const float magnusConstant = 0.03f;
+    
     [SerializeField] TextMeshProUGUI distanceText;
     [SerializeField] TextMeshProUGUI heightText;
 
@@ -40,15 +41,12 @@ public class Ball : MonoBehaviour
 
     void ApplyMagnusForce()
     {
-        if (magnusConstant > 0)
-        {
-            Vector3 magnusForce = Vector3.Cross(
-                golfBallRigidbody.angularVelocity,
-                golfBallRigidbody.velocity
-            );
-            
-            golfBallRigidbody.AddForce(magnusForce * magnusConstant);
-        }
+        Vector3 magnusForce = Vector3.Cross(
+            golfBallRigidbody.angularVelocity,
+            golfBallRigidbody.velocity
+        );
+        
+        golfBallRigidbody.AddForce(magnusForce * magnusConstant);
     }
 
     void ApplyLoft()
