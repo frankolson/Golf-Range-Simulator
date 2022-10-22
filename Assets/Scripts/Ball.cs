@@ -31,15 +31,11 @@ public class Ball : MonoBehaviour
     }
 
     public void StrikeBall()
-    {
-        Vector3 spin = CalculateSpin();
-        
+    {        
         ApplyAim();
         ApplyLoft();
         golfBallRigidbody.AddForce(transform.forward * Force, ForceMode.Impulse);
-        golfBallRigidbody.AddRelativeTorque(spin, ForceMode.Impulse);
-
-        Debug.Log($"Aim: {transform.eulerAngles.y}, Loft: {transform.eulerAngles.x}, Force: {Force}, Spin: {spin}");
+        ApplySpin();
     }
 
     void ApplyMagnusForce()
@@ -69,6 +65,12 @@ public class Ball : MonoBehaviour
         transform.eulerAngles = rotation;
     }
 
+    void ApplySpin()
+    {
+        Vector3 spin = CalculateSpin();
+        golfBallRigidbody.AddRelativeTorque(spin, ForceMode.Impulse);
+    }
+
     Vector3 CalculateSpin()
     {
         // x range: -1 to 1
@@ -95,5 +97,15 @@ public class Ball : MonoBehaviour
             topHeight = (int) transform.position.y;
             heightText.text = $"Height: {topHeight * 3} feet";
         }
+    }
+
+    void LogSwing()
+    {
+        string aim = $"Aim: {transform.eulerAngles.y}";
+        string loft = $"Loft: {transform.eulerAngles.x}";
+        string force = $"Force: {Force}";
+        string spin = $"Spin: {CalculateSpin()}";
+
+        Debug.Log($"{aim}\n{loft}\n{force}\n{spin}");
     }
 }
