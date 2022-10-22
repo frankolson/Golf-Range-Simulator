@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
             ballScript.AimAngle = stanceAngle;
             ballScript.LoftAngle = clubScript.loftAngle;
             ballScript.StrikeLocation = ballStrikeLocation;
-            ballScript.Distance = CalculateBallSpeed();
+            ballScript.Speed = CalculateBallSpeed();
 
             ballScript.StrikeBall();
             isHit = true;

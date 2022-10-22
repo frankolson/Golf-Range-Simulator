@@ -6,18 +6,21 @@ using TMPro;
 public class Ball : MonoBehaviour
 {
 	const float magnusConstant = 0.03f;
+    const float golfBallMass = 0.046f; // kilograms
     
     [SerializeField] TextMeshProUGUI distanceText;
     [SerializeField] TextMeshProUGUI heightText;
+    [SerializeField] TextMeshProUGUI speedText;
 
     private Rigidbody golfBallRigidbody;
     private int topDistance;
     private int topHeight;
+    private int topSpeed;
 
     public Vector2 StrikeLocation { get; set; }
     public float AimAngle { get; set; }
     public float LoftAngle { get; set; }
-    public float Distance { get; set; }
+    public float Speed { get; set; } // ball speed after impact
     
     void Start()
     {
@@ -29,6 +32,7 @@ public class Ball : MonoBehaviour
         ApplyMagnusForce();
         UpdateDistanceText();
         UpdateHeightText();
+        UpdateSpeedText();
     }
 
     public void StrikeBall()
@@ -77,7 +81,13 @@ public class Ball : MonoBehaviour
 
     float CalculateForce()
     {
-        return Distance;
+        // Thank you Martin Dachev: https://forum.unity.com/threads/calculating-force-from-velocity-and-mass-some-common-misconceptions.328128/ 
+        // force = mass * acceleration
+        // force = mass * (Δvelocity / Δtime)
+        //       = 0.046 * (74.65568 / 0.02)
+        //       = 171.708064
+        return golfBallMass * (Speed / Time.fixedDeltaTime);
+        // return Speed;
     }
 
     Vector3 CalculateSpin()
@@ -103,6 +113,15 @@ public class Ball : MonoBehaviour
         {
             topHeight = (int) transform.position.y;
             heightText.text = $"Height: {topHeight * 3} feet";
+        }
+    }
+
+    void UpdateSpeedText()
+    {
+        if ((int) golfBallRigidbody.velocity.magnitude > topSpeed)
+        {
+            topSpeed = (int) golfBallRigidbody.velocity.magnitude;
+            speedText.text = $"Ball Speed: {topSpeed} m/s";
         }
     }
 
