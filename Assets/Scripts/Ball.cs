@@ -71,10 +71,8 @@ public class Ball : MonoBehaviour
 
     Vector3 CalculateSpin()
     {
-        // x range: -1 to 1
-        float sidespin = StrikeLocation.x;
-        // y range: -1 to 1
-        float backspin = StrikeLocation.y;
+        float sidespin = StrikeLocation.x; // x range: -1 to 1
+        float backspin = StrikeLocation.y; // y range: -1 to 1
 
         return new Vector3(backspin, sidespin, 0);
     }
