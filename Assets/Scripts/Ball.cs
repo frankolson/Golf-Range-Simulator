@@ -5,19 +5,21 @@ using TMPro;
 
 public class Ball : MonoBehaviour
 {
-	[SerializeField] float magnusConstant = 0.03f;
+	const float magnusConstant = 0.03f;
     [SerializeField] TextMeshProUGUI distanceText;
     [SerializeField] TextMeshProUGUI heightText;
 
     private Rigidbody golfBallRigidbody;
-    private Vector3 spin;
-    private float force;
     private int topDistance;
     private int topHeight;
+
+    public Vector2 StrikeLocation { get; set; }
+    public float AimAngle { get; set; }
+    public float LoftAngle { get; set; }
+    public float Force { get; set; }
     
     void Start()
     {
-
         golfBallRigidbody = GetComponent<Rigidbody>();
     }
 
@@ -26,6 +28,18 @@ public class Ball : MonoBehaviour
         ApplyMagnusForce();
         UpdateDistanceText();
         UpdateHeightText();
+    }
+
+    public void StrikeBall()
+    {
+        Vector3 spin = CalculateSpin();
+        
+        ApplyAim();
+        ApplyLoft();
+        golfBallRigidbody.AddForce(transform.forward * Force, ForceMode.Impulse);
+        golfBallRigidbody.AddRelativeTorque(spin, ForceMode.Impulse);
+
+        Debug.Log($"Aim: {transform.eulerAngles.y}, Loft: {transform.eulerAngles.x}, Force: {Force}, Spin: {spin}");
     }
 
     void ApplyMagnusForce()
@@ -41,6 +55,30 @@ public class Ball : MonoBehaviour
         }
     }
 
+    void ApplyLoft()
+    {
+        Vector3 rotation = transform.eulerAngles;
+        rotation.x = -LoftAngle;
+        transform.eulerAngles = rotation;
+    }
+
+    void ApplyAim()
+    {
+        Vector3 rotation = transform.eulerAngles;
+        rotation.y = -AimAngle;
+        transform.eulerAngles = rotation;
+    }
+
+    Vector3 CalculateSpin()
+    {
+        // x range: -1 to 1
+        float sidespin = StrikeLocation.x;
+        // y range: -1 to 1
+        float backspin = StrikeLocation.y;
+
+        return new Vector3(backspin, sidespin, 0);
+    }
+    
     void UpdateDistanceText()
     {
         if ((int) transform.position.z > topDistance)
@@ -57,42 +95,5 @@ public class Ball : MonoBehaviour
             topHeight = (int) transform.position.y;
             heightText.text = $"Height: {topHeight * 3} feet";
         }
-    }
-
-    public void SetLoft(float loftAngle)
-    {
-        Vector3 rotation = transform.eulerAngles;
-        rotation.x = -loftAngle;
-        transform.eulerAngles = rotation;
-    }
-
-    public void SetAim(float aimAngle)
-    {
-        Vector3 rotation = transform.eulerAngles;
-        rotation.y = -aimAngle;
-        transform.eulerAngles = rotation;
-    }
-
-    public void SetForce(float force)
-    {
-        this.force = force;
-    }
-
-    public void SetStrikeLocation(Vector2 location)
-    {
-        // x range: -1 to 1
-        float sidespin = location.x;
-        // y range: -1 to 1
-        float backspin = location.y;
-
-        spin = new Vector3(backspin, sidespin, 0);
-    }
-
-    public void StrikeBall()
-    {
-        Debug.Log($"Aim: {transform.eulerAngles.y}, Loft: {transform.eulerAngles.x}, Force: {force}, Spin: {spin}");
-
-        golfBallRigidbody.AddForce(transform.forward * this.force, ForceMode.Impulse);
-        golfBallRigidbody.AddRelativeTorque(spin, ForceMode.Impulse);
     }
 }

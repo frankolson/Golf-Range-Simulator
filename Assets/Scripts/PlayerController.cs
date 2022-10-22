@@ -73,10 +73,10 @@ public class PlayerController : MonoBehaviour
     {
         if (!isHit)
         {
-            ballScript.SetAim(stanceAngle);
-            ballScript.SetLoft(clubScript.loft);
-            ballScript.SetStrikeLocation(ballStrikeLocation);
-            ballScript.SetForce(CalculateSwingForce());
+            ballScript.AimAngle = stanceAngle;
+            ballScript.LoftAngle = clubScript.loft;
+            ballScript.StrikeLocation = ballStrikeLocation;
+            ballScript.Force = CalculateSwingForce();
 
             ballScript.StrikeBall();
             isHit = true;
